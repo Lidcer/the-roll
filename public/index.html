@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Roll as you never before">
+    <meta name="keywords" content="Roll them all">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The advanced roll</title>
+
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        background-color: black;
+        font-family: 'Courier New', Courier, monospace;
+        overflow: hidden;
+    }
+    #player {
+
+       display: fixed;
+    }
+    #warper {
+        position: fixed;
+        background: transparent;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    #black {
+        position: fixed;
+        background: blue;
+        font-weight: bolder;
+        left: 0;
+        top: 0;
+        size: 5pt;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+
+    }
+    span {
+        color: black;
+        font-weight: bolder;
+        background-color: transparent;
+        font-size: 50px;
+
+    }
+
+    button {
+        color: white;
+        background-color: black;
+        border: none;
+        font-size: 50px;
+        padding: 5px;
+        margin: 5px;
+    }
+
+</style>
+
+</head>
+<body>
+    <div id="warper"></div>
+    <div id="black">
+
+        <span>
+            Please accept cookies 
+
+        </span>
+        <br>
+        <button>Accept</button>
+
+    </div>
+ <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player" hidden></div>
+
+    <script>
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: window.innerHeight,
+          width: window.innerWidth,
+          videoId: 'dQw4w9WgXcQ',
+          events: {
+            'onReady': onPlayerReady,
+          }
+        });
+      }
+      window.ready = false;
+      function onPlayerReady(event) {
+          window.ready = true;
+          window.addEventListener("resize", () => {
+              player.setSize(window.innerWidth, window.innerHeight)
+          });
+      }
+    </script>
+
+    <script src="index.js"></script>
+</body>
+</html>
