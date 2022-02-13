@@ -1,3 +1,5 @@
+const TerserPlugin = require('terser-webpack-plugin');
+
 module.exports = {
   //mode: 'development',
   mode: "production",
@@ -15,7 +17,22 @@ module.exports = {
     rules: [{
       test: /\.(js|ts)$/,
       exclude: /node_modules/,
-      loaders: ["ts-loader"]
+      use: {
+        loader: "ts-loader"
+      }
     }]
-  }
+  },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+        terserOptions: {
+          sourceMap: true,
+          ecma: 5,
+          mangle: true,
+          output: { comments: false },
+        },
+      }),
+    ],
+  },
 };
